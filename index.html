@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نصف ما نرى - رحمه</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff2e63;
+            --secondary: #ff8ba0;
+            --dark: #5a0017;
+            --light: #fff5f7;
+            --accent: #ff9eb5;
+            --text: #3a0010;
+            --shadow: 0 10px 30px rgba(255, 46, 99, 0.2);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'El Messiri', sans-serif;
+            background: linear-gradient(135deg, #1a000a 0%, #3a0015 50%, #5a0020 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* الشريط العلوي */
+        header {
+            padding: 25px 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 70px;
+            padding: 15px 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            background: var(--light);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn i {
+            font-size: 1.3rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 46, 99, 0.4);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+            border-radius: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* بطاقات المحتوى */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .content-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(255, 46, 99, 0.3);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .card-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .card-content .highlight {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* مشغل الموسيقى */
+        .music-player {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 25px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .album-art.playing {
+            animation: albumRotate 4s infinite linear;
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .track-artist {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.4);
+        }
+
+        .play-btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 46, 99, 0.6);
+        }
+
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* تأثيرات الخلفية */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: float 15s infinite linear;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -15px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -15px;
+        }
+
+        .floating-text {
+            position: absolute;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            animation: floatText 20s infinite linear;
+        }
+
+        /* تذييل الصفحة */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(45deg); opacity: 0; }
+        }
+
+        @keyframes floatText {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 46, 99, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 46, 99, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 46, 99, 0); }
+        }
+
+        @keyframes albumRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 992px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+                border-radius: 25px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2.3rem;
+            }
+            
+            .player-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .music-info {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- تأثيرات الخلفية -->
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <!-- الشريط العلوي -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-heart"></i>
+                    <div class="logo-text">رحمه</div>
+                </div>
+                <div class="nav-links">
+                    <button class="nav-btn active" data-page="home">
+                        <i class="fas fa-home"></i> مرحبا بك
+                    </button>
+                    <button class="nav-btn" data-page="romance">
+                        <i class="fas fa-heart"></i> رحمه تصف 
+                    </button>
+                    <button class="nav-btn" data-page="poetry">
+                        <i class="fas fa-pen-nib"></i> رحمه في ابيات
+                    </button>
+                    <button class="nav-btn" data-page="love">
+                        <i class="fas fa-star"></i> كلام
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="container">
+            <!-- الصفحة الرئيسية -->
+            <section id="home" class="page active">
+                <div class="page-header">
+                    <h1 class="page-title">عالمك</h1>
+                    <p class="page-subtitle">استمتع بأجمل صفاتك</p>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h2 class="card-title">اكتشف نفسك</h2>
+                        <div class="card-content">
+                            <p>استمع إلى <span class="highlight">أجمل الصفات</span> في وصفك ومعرفتي بك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h2 class="card-title">شعر لك</h2>
+                        <div class="card-content">
+                            <p>أجمل الكلمات <span class="highlight">التي تعبر عنك</span> بأسلوب يلامس الروح.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h2 class="card-title">موسيقى هادئة</h2>
+                        <div class="card-content">
+                            <p>استمع إلى <span class="highlight">موسيقى هادئة</span> تتناسب مع كل حالة من حالات المشاعر.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="music-player">
+                    <div class="player-header">
+                        <div class="music-info">
+                            <div class="album-art" id="album-art-home">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="track-info">
+                                <div class="track-title" id="track-title-home">نشيد الحب</div>
+                                <div class="track-artist" id="track-artist-home">رحمه</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-controls">
+                        <div class="progress-container" id="progress-container-home">
+                            <div class="progress-bar" id="progress-bar-home"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time-home">0:00</span>
+                            <span id="duration-home">0:00</span>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button class="control-btn" id="prev-btn-home">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button class="control-btn play-btn" id="play-btn-home">
+                                <i class="fas fa-play" id="play-icon-home"></i>
+                            </button>
+                            <button class="control-btn" id="next-btn-home">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- صفحة الغزل الرومانسي -->
+            <section id="romance" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">أنتِ</h1>
+                    <p class="page-subtitle">الأجمل لكِ</p>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>طيبه غلبانه اوي بتحبي مساعدته الناس <br>
+                            قلبك كبير حنينه اوي  <br>
+                            بتفضلي غيرك عليكي <br>
+                            بتيجي علي حساب نفسك علشان تساعدي غيرك   </p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>مولوده في يوم من ايام الشتاء     <br>
+                              23 ديسمبر 2004<br>
+                               طالع العزراء <br>
+                                الفنانه في ذوقها الراقي </p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>الحنونه البتنحب من كلامها       <br>
+                            روحها طفوليه وحلوه جدا <br>
+                            صاحبه المشاعر الحساسه <br>
+                            بتحلل القدامها في صمت تام وتسكت </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="music-player">
+                    <div class="player-header">
+                        <div class="music-info">
+                            <div class="album-art" id="album-art-romance" style="background: linear-gradient(135deg, #ff6b9d, #ff2e63);">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="track-info">
+                                <div class="track-title" id="track-title-romance">أغنية </div>
+                                <div class="track-artist" id="track-artist-romance">رحمه</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-controls">
+                        <div class="progress-container" id="progress-container-romance">
+                            <div class="progress-bar" id="progress-bar-romance"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time-romance">0:00</span>
+                            <span id="duration-romance">0:00</span>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button class="control-btn" id="prev-btn-romance">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button class="control-btn play-btn" id="play-btn-romance">
+                                <i class="fas fa-play" id="play-icon-romance"></i>
+                            </button>
+                            <button class="control-btn" id="next-btn-romance">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- صفحة الشعر -->
+            <section id="poetry" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">شعر جميل</h1>
+                    <p class="page-subtitle">الكبير بيفضفضلك والصغير بيرتاحلك والغريب اول مبيعرفك بيحبك   </p>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>طفلٌ تُرى؟ أم أنثى من وَدقِ السما     <br>
+                               زرعت حنانًا في القلوبِ فأنعما  <br>
+                         في صوتِها ضحكُ الطفولة رائحٌ<br>
+                            قلبٌ إذا مرَّ النسيمُ عليه حنَّ   </p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>يا زهرةً تمشي على قدَرٍ رقيقْ    <br>
+                            عيناكِ ليلانِ ينامُ بهِ الهوى    <br>
+                             كالعطرِ يحملُ سرَّهُ وردٌ طليقْ  <br>
+                            وما الطيبُ إلا من تسامى قلبُهُ</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>طيبه القلب والروح     <br>
+                            تنظري للحب بنضاجه وفهم<br>
+                             عندك حب الذكريات <br>
+                            بتحبي السفر والمرح جدا  </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="music-player">
+                    <div class="player-header">
+                        <div class="music-info">
+                            <div class="album-art" id="album-art-poetry" style="background: linear-gradient(135deg, #ff9eb5, #ff6b9d);">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <div class="track-info">
+                                <div class="track-title" id="track-title-poetry">أنغام </div>
+                                <div class="track-artist" id="track-artist-poetry">رحمه</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-controls">
+                        <div class="progress-container" id="progress-container-poetry">
+                            <div class="progress-bar" id="progress-bar-poetry"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time-poetry">0:00</span>
+                            <span id="duration-poetry">0:00</span>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button class="control-btn" id="prev-btn-poetry">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button class="control-btn play-btn" id="play-btn-poetry">
+                                <i class="fas fa-play" id="play-icon-poetry"></i>
+                            </button>
+                            <button class="control-btn" id="next-btn-poetry">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- صفحة كلام عن الحب -->
+            <section id="love" class="page">
+                <div class="page-header">
+                    <h1 class="page-title"> انت القصه التي لا أريد ان يكون لها نهاية </h1>
+                    <p class="page-subtitle">    </p>
+                </div>
+                
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p> لستي مجرد فتاه عابره بل بصمه للزمن<br>
+                             بل ختم في الوجدان  <br>
+                             انتي مش لاي حد  <br>
+                            حضورك يجلب الاطمئنان </p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p> انظري للعقل قبل القلب   <br>
+                              متنظريش للناس متهتميش لكلامهم <br>
+                            متمشيش ورا شكك <br>
+                             الناس بتلجالك في مشاكلها متنسيش مشاكلك    </p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-content">
+                            <p>  مش هيفهمك غير اليعرفك   <br>
+                            وابعدي عن روما   <br>
+                             تباني هاديه ولو جواكي الف مشكله   <br>
+                            بتحبي عيلتك وبتحبي الكل</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="music-player">
+                    <div class="player-header">
+                        <div class="music-info">
+                            <div class="album-art" id="album-art-love" style="background: linear-gradient(135deg, #ff2e63, #cc0044);">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="track-info">
+                                <div class="track-title" id="track-title-love">لحن </div>
+                                <div class="track-artist" id="track-artist-love">رحمه</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-controls">
+                        <div class="progress-container" id="progress-container-love">
+                            <div class="progress-bar" id="progress-bar-love"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time-love">0:00</span>
+                            <span id="duration-love">0:00</span>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button class="control-btn" id="prev-btn-love">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button class="control-btn play-btn" id="play-btn-love">
+                                <i class="fas fa-play" id="play-icon-love"></i>
+                            </button>
+                            <button class="control-btn" id="next-btn-love">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                <p class="copyright">طيبة القلب والروح</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // إنشاء القلوب والنصوص العائمة في الخلفية
+        function createFloatingElements() {
+            const container = document.getElementById('hearts-container');
+            
+            // إنشاء القلوب
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                const size = Math.random() * 20 + 15;
+                
+                heart.style.left = `${left}%`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                
+                container.appendChild(heart);
+            }
+            
+            // إنشاء النصوص العائمة
+            const texts = ['غلبانه', 'محبه', 'حنينه', 'رومانسية', 'قلب ابيض', 'طيبه', 'رحمه', 'رحمه'];
+            
+            for (let i = 0; i < 15; i++) {
+                const text = document.createElement('div');
+                text.classList.add('floating-text');
+                text.textContent = texts[Math.floor(Math.random() * texts.length)];
+                
+                const left = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 15 + 20;
+                
+                text.style.left = `${left}%`;
+                text.style.animationDelay = `${delay}s`;
+                text.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(text);
+            }
+        }
+
+        // === نظام الموسيقى الحقيقي ===
+        // هنا ضع أسماء ملفات الموسيقى الخاصة بك في نفس المجلد
+        const musicTracks = {
+            home: {
+                title: "نشيد الحب",
+                artist: "رحمه",
+                src: "song1.mp3" // غير هذا الاسم لاسم ملفك
+            },
+            romance: {
+                title: "أغنية الشوق",
+                artist: "رحمه", 
+                src: "song2.mp3" // غير هذا الاسم لاسم ملفك
+            },
+            poetry: {
+                title: "أنغام الشعر",
+                artist: "رحمه",
+                src: "song3.mp3" // غير هذا الاسم لاسم ملفك
+            },
+            love: {
+                title: "لحن الحب",
+                artist: "رحمه",
+                src: "song4.mp3" // غير هذا الاسم لاسم ملفك
+            }
+        };
+
+        // كائنات Audio حقيقية
+        const audioPlayers = {
+            home: new Audio(),
+            romance: new Audio(),
+            poetry: new Audio(),
+            love: new Audio()
+        };
+
+        // متغيرات التحكم
+        let currentAudio = null;
+        let isPlaying = false;
+        let progressInterval;
+
+        // تهيئة مشغلات الموسيقى
+        function initializeAudioPlayers() {
+            Object.keys(audioPlayers).forEach(page => {
+                const audio = audioPlayers[page];
+                const track = musicTracks[page];
+                
+                // تعيين مصدر الموسيقى
+                audio.src = track.src;
+                audio.preload = "metadata";
+                
+                // تحديث واجهة المستخدم
+                const trackTitle = document.getElementById(`track-title-${page}`);
+                const trackArtist = document.getElementById(`track-artist-${page}`);
+                
+                if (trackTitle) trackTitle.textContent = track.title;
+                if (trackArtist) trackArtist.textContent = track.artist;
+
+                // عند تحميل البيانات
+                audio.addEventListener('loadedmetadata', function() {
+                    const duration = document.getElementById(`duration-${page}`);
+                    if (duration && !isNaN(audio.duration)) {
+                        const totalMinutes = Math.floor(audio.duration / 60);
+                        const totalSeconds = Math.floor(audio.duration % 60);
+                        duration.textContent = `${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
+                    }
+                });
+
+                // عند انتهاء الموسيقى
+                audio.addEventListener('ended', function() {
+                    stopAudio(page);
+                });
+
+                // في حالة خطأ في تحميل الملف
+                audio.addEventListener('error', function() {
+                    console.log(`خطأ في تحميل الملف: ${track.src}`);
+                    const duration = document.getElementById(`duration-${page}`);
+                    if (duration) duration.textContent = "0:00";
+                });
+            });
+        }
+
+        // تشغيل الموسيقى
+        function playAudio(page) {
+            if (currentAudio === page && isPlaying) return;
+            
+            // إيقاف أي موسيقى مشغلة حالياً
+            stopAllAudio();
+            
+            currentAudio = page;
+            isPlaying = true;
+            
+            const audio = audioPlayers[page];
+            const playIcon = document.getElementById(`play-icon-${page}`);
+            const albumArt = document.getElementById(`album-art-${page}`);
+            
+            // تشغيل الموسيقى
+            audio.play().catch(error => {
+                console.log('خطأ في تشغيل الموسيقى:', error);
+                // إذا فشل التشغيل، استخدم الموسيقى الافتراضية
+                useFallbackAudio(page);
+            });
+            
+            // تحديث الواجهة
+            if (playIcon) {
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            }
+            if (albumArt) {
+                albumArt.classList.add('playing');
+            }
+            
+            // تحديث شريط التقدم
+            updateProgressBar(page);
+        }
+
+        // بديل في حالة عدم وجود الملفات
+        function useFallbackAudio(page) {
+            const playIcon = document.getElementById(`play-icon-${page}`);
+            const albumArt = document.getElementById(`album-art-${page}`);
+            
+            if (playIcon) {
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            }
+            if (albumArt) {
+                albumArt.classList.add('playing');
+            }
+            
+            // محاكاة الموسيقى
+            simulateMusic(page);
+        }
+
+        // محاكاة الموسيقى في حالة عدم وجود الملفات
+        function simulateMusic(page) {
+            const progressBar = document.getElementById(`progress-bar-${page}`);
+            const currentTime = document.getElementById(`current-time-${page}`);
+            const duration = document.getElementById(`duration-${page}`);
+            
+            let progress = 0;
+            const totalTime = 180; // 3 دقائق
+            
+            if (duration) duration.textContent = "3:00";
+            
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                if (progress < 100) {
+                    progress += (100 / totalTime);
+                    if (progressBar) progressBar.style.width = `${progress}%`;
+                    
+                    if (currentTime) {
+                        const currentSeconds = Math.floor((progress / 100) * totalTime);
+                        const minutes = Math.floor(currentSeconds / 60);
+                        const seconds = currentSeconds % 60;
+                        currentTime.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    }
+                } else {
+                    stopAudio(page);
+                }
+            }, 1000);
+        }
+
+        // إيقاف الموسيقى مؤقتاً
+        function pauseAudio(page) {
+            if (currentAudio !== page) return;
+            
+            isPlaying = false;
+            const audio = audioPlayers[page];
+            const playIcon = document.getElementById(`play-icon-${page}`);
+            const albumArt = document.getElementById(`album-art-${page}`);
+            
+            // إذا كان الملف موجوداً، أوقفه
+            if (audio.src && !audio.src.includes('undefined')) {
+                audio.pause();
+            }
+            
+            if (playIcon) {
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+            if (albumArt) {
+                albumArt.classList.remove('playing');
+            }
+            
+            clearInterval(progressInterval);
+        }
+
+        // إيقاف الموسيقى تماماً
+        function stopAudio(page) {
+            if (currentAudio !== page && currentAudio !== null) return;
+            
+            isPlaying = false;
+            currentAudio = null;
+            
+            const audio = audioPlayers[page];
+            const playIcon = document.getElementById(`play-icon-${page}`);
+            const albumArt = document.getElementById(`album-art-${page}`);
+            const progressBar = document.getElementById(`progress-bar-${page}`);
+            const currentTime = document.getElementById(`current-time-${page}`);
+            
+            // إذا كان الملف موجوداً، أوقفه
+            if (audio.src && !audio.src.includes('undefined')) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            
+            if (playIcon) {
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+            if (albumArt) {
+                albumArt.classList.remove('playing');
+            }
+            if (progressBar) progressBar.style.width = '0%';
+            if (currentTime) currentTime.textContent = '0:00';
+            
+            clearInterval(progressInterval);
+        }
+
+        // إيقاف كل الموسيقى
+        function stopAllAudio() {
+            Object.keys(audioPlayers).forEach(page => {
+                const audio = audioPlayers[page];
+                const playIcon = document.getElementById(`play-icon-${page}`);
+                const albumArt = document.getElementById(`album-art-${page}`);
+                
+                if (audio.src && !audio.src.includes('undefined')) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                
+                if (playIcon) {
+                    playIcon.classList.remove('fa-pause');
+                    playIcon.classList.add('fa-play');
+                }
+                if (albumArt) {
+                    albumArt.classList.remove('playing');
+                }
+            });
+            
+            isPlaying = false;
+            currentAudio = null;
+            clearInterval(progressInterval);
+        }
+
+        // تحديث شريط التقدم
+        function updateProgressBar(page) {
+            const audio = audioPlayers[page];
+            const progressBar = document.getElementById(`progress-bar-${page}`);
+            const currentTime = document.getElementById(`current-time-${page}`);
+            
+            // إذا كان الملف غير موجود، استخدم المحاكاة
+            if (!audio.src || audio.src.includes('undefined')) {
+                simulateMusic(page);
+                return;
+            }
+            
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                if (!audio.paused && audio.duration && !isNaN(audio.duration)) {
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    if (progressBar) progressBar.style.width = `${progress}%`;
+                    
+                    if (currentTime) {
+                        const currentMinutes = Math.floor(audio.currentTime / 60);
+                        const currentSeconds = Math.floor(audio.currentTime % 60);
+                        currentTime.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
+                    }
+                }
+            }, 1000);
+        }
+
+        // التحكم في شريط التقدم بالنقر
+        function setupProgressBars() {
+            Object.keys(audioPlayers).forEach(page => {
+                const container = document.getElementById(`progress-container-${page}`);
+                const audio = audioPlayers[page];
+                
+                if (container) {
+                    container.addEventListener('click', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const clickPosition = (e.clientX - rect.left) / this.offsetWidth;
+                        
+                        if (audio.duration && !isNaN(audio.duration)) {
+                            const newTime = clickPosition * audio.duration;
+                            audio.currentTime = newTime;
+                        }
+                        updateProgressBar(page);
+                    });
+                }
+            });
+        }
+
+        // إعداد أزرار التحكم
+        function setupControlButtons() {
+            // الصفحة الرئيسية
+            document.getElementById('play-btn-home').addEventListener('click', () => {
+                if (isPlaying && currentAudio === 'home') {
+                    pauseAudio('home');
+                } else {
+                    playAudio('home');
+                }
+            });
+
+            // صفحة الغزل
+            document.getElementById('play-btn-romance').addEventListener('click', () => {
+                if (isPlaying && currentAudio === 'romance') {
+                    pauseAudio('romance');
+                } else {
+                    playAudio('romance');
+                }
+            });
+
+            // صفحة الشعر
+            document.getElementById('play-btn-poetry').addEventListener('click', () => {
+                if (isPlaying && currentAudio === 'poetry') {
+                    pauseAudio('poetry');
+                } else {
+                    playAudio('poetry');
+                }
+            });
+
+            // صفحة الحب
+            document.getElementById('play-btn-love').addEventListener('click', () => {
+                if (isPlaying && currentAudio === 'love') {
+                    pauseAudio('love');
+                } else {
+                    playAudio('love');
+                }
+            });
+
+            // أزرار التقدم والتراجع (إعادة التشغيل)
+            document.querySelectorAll('[id*="prev-btn"], [id*="next-btn"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const page = this.id.split('-')[2];
+                    stopAudio(page);
+                    setTimeout(() => playAudio(page), 300);
+                });
+            });
+        }
+
+        // التنقل بين الصفحات
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                
+                // تحديث الأزرار النشطة
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // إخفاء كل المحتوى
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // إظهار المحتوى المحدد
+                document.getElementById(pageId).classList.add('active');
+                
+                // إيقاف أي موسيقى مشغلة وتشغيل موسيقى الصفحة الجديدة
+                stopAllAudio();
+                setTimeout(() => {
+                    playAudio(pageId);
+                }, 300);
+            });
+        });
+
+        // تهيئة الموقع
+        window.addEventListener('load', function() {
+            createFloatingElements();
+            initializeAudioPlayers();
+            setupProgressBars();
+            setupControlButtons();
+            
+            // تشغيل الموسيقى تلقائياً عند فتح الصفحة الأولى
+            setTimeout(() => {
+                playAudio('home');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
